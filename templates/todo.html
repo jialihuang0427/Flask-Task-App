@@ -1,48 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>To-Do List</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <style>
-        .container {
-            display: flex;
-            justify-content: space-between;
-            max-width: 900px;
-            margin: auto;
-            padding: 20px;
-        }
-
-        .todo-section, .quote-section {
-            width: 45%;
-            padding: 15px;
-            border-radius: 5px;
-            background: #f8f9fa;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        li {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 8px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .delete-btn {
-            background-color: red;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
-</head>
+    <head>
+        <title>To-Do List</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='todo.css') }}">
+    </head>
+    
 <body>
     <h2>To-Do List</h2>
     <div class="container">
