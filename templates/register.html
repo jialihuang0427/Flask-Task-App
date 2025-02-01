@@ -9,7 +9,13 @@
     <form method="POST">
         <input type="text" name="username" placeholder="Username" required><br>
         <input type="password" name="password" placeholder="Password" required><br>
-        <button type="submit">Register</button>
+        <div class="button-container">
+            <!-- Back to Login Button -->
+            <a href="{{ url_for('login') }}" class="back-btn">Back to Login</a>
+
+            <!-- Register Button -->
+            <button type="submit" class="register-btn">Register</button>
+        </div>
     </form>
 </body>
 </html>
