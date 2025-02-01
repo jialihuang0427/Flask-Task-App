@@ -9,15 +9,20 @@
     color: white;
 }
 
-/* 🟦 NAVBAR STYLING */
+/* 🟦 FIXED NAVBAR */
 .navbar {
-    background-color: #353270;;
+    background-color: #1a237e; /* Dark blue */
     color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 30px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    position: fixed; /* Fixes navbar at the top */
+    top: 0;
+    left: 0;
+    width: 100%; /* Ensures it spans across the screen */
+    z-index: 1000; /* Keeps navbar on top of other content */
 }
 
 .nav-links {
@@ -42,10 +47,13 @@
 }
 
 /* 🟦 NAVBAR BUTTON STYLING */
+/* 🟦 NAV BUTTONS (Logout + Light Mode) */
 .nav-buttons {
     display: flex;
-    gap: 15px;
+    gap: 10px; /* Space between buttons */
+    margin-right: 40px; /* Moves buttons slightly to the left */
 }
+
 
 .btn {
     background-color: #5aaccc;
@@ -85,6 +93,7 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
     text-align: center;
+    padding-top: 60px; /* Adjust according to navbar height */
 }
 
 .container {
@@ -117,3 +126,102 @@ body {
     background-color: darkred;
 }
 
+
+/* Adjust Contact Section Height */
+#contact {
+    width: 100%;
+    background-color: #e8ebef; /* Light Grey */
+    padding: 20px 10px; /* Reduce padding */
+    min-height: 300px; /* Reduce height */
+}
+
+/* Contact Section */
+.contact-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 50px;
+    background-color:#e8ebef;
+    max-width: 1100px;
+    margin: auto;
+    border-radius: 10px;
+}
+
+.contact-form {
+    flex: 1;
+    max-width: 500px;
+}
+
+.contact-form h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.contact-form p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.submit-btn {
+    background-color: #5aaccc;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.submit-btn:hover {
+    background-color:#5c6bc0;
+}
+.contact-info {
+    flex: 1;
+    max-width: 400px;
+    padding-left: 50px;
+}
+
+.contact-info h3 {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.contact-info h4 {
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.contact-info p {
+    font-size: 14px;
+    color: #555;
+}
+
+.contact-info a {
+    color: #36b49f;
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+/* Copyright Section Full Width */
+.copyright {
+    width: 100%;
+    background-color: #0c4a6e;
+    text-align: center;
+    padding: 10px;
+    color: white;
+}

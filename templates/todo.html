@@ -17,7 +17,7 @@
             <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="nav-buttons">
-            <a href="{{ url_for('logout') }}" class="btn logout-btn">Logout</a>
+            <a href="{{ url_for('logout') }}" class="btn logout-btn">Log Out</a>
             <button id="toggleMode" class="btn mode-btn">Light Mode</button>
         </div>
     </nav>
@@ -74,9 +74,75 @@
     </section>
     
     <section id="contact">
-        <h2>Contact Us</h2>
-        <p>Email: support@taskflow.com</p>
+        <div class="contact-container">
+            <!-- Left: Contact Form -->
+            <div class="contact-form">
+                <h2>Get in Touch !</h2>
+                <p>Please fill out the quick form and I will be in touch in good time.</p>
+                
+                <form name="submit-to-google-sheet">
+                    <input type="text" name="Name" placeholder="Name" required>
+                    <input type="email" name="Email" placeholder="Your email address" required>
+                    <textarea name="Message" rows="4" placeholder="Message"></textarea>
+                    <button type="submit" class="btn submit-btn">Submit</button>
+                </form>
+                <span id="msg"></span>
+            </div>
+    
+            <!-- Right: Contact Info -->
+            <div class="contact-info">
+                <h3>Connect with me:</h3>
+                <p>For support or any questions:</p>
+                <p>Email me at <a href="mailto:support@taskflow.com">supportingyou@taskflow.com</a></p>
+    
+                <h4>Taskflow City</h4>
+                <p>123 Productivity Road, Suite 2,<br> The Tasks Avenue 56632 <br> UK</p>
+
+                <h4>TaskFlow Town</h4>
+                <p>456 Working Road, Suite 6,<br> Management Street 456<br> UK</p>
+
+            </div>
+        </div>
     </section>
     
+    
+   
+    
+    
+    <div class="copyright">
+        <p>Made by Jiali Huang. All Rights Reserved</p>
+    </div>
+    
+    <script>
+        const scriptURL = "https://script.google.com/macros/s/AKfycbzmL3F2sHl3M32zbpw8ct-HGrSs3PDfprF8049zlXi7YF-X-bxanU_zeMDjP6XCeoN5/exec";
+        const form = document.forms["submit-to-google-sheet"];
+        const msg = document.getElementById("msg");
+        
+        if (!form) {
+            console.error("❌ Form not found! Check the form name.");
+        } else {
+            console.log("✅ Form detected successfully.");
+        }
+        
+        form.addEventListener("submit", e => {
+            e.preventDefault();
+            console.log("📩 Form submitted!");
+        
+            fetch(scriptURL, { method: "POST", body: new FormData(form) })
+                .then(response => {
+                    console.log("✅ Response received:", response);
+                    msg.innerHTML = "✅ Message sent successfully!";
+                    msg.style.color = "green";
+                    setTimeout(() => { msg.innerHTML = ""; }, 5000);
+                    form.reset();
+                })
+                .catch(error => {
+                    console.error("❌ Error:", error.message);
+                    msg.innerHTML = "❌ Failed to send message!";
+                    msg.style.color = "red";
+                });
+        });
+        
+    </script>
 </body>
 </html>
