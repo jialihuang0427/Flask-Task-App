@@ -5,17 +5,108 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='todo.css') }}">
     </head>
     
+    
     <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            let timer;
+            let isRunning = false;
+            let timeLeft = 1500; // Default: 25 minutes
+        
+            const timerDisplay = document.querySelector(".timer-display");
+            const startBtn = document.getElementById("start-btn");
+            const modeButtons = document.querySelectorAll(".mode-btn");
+        
+            // Function to format time (MM:SS)
+            function formatTime(seconds) {
+                const mins = Math.floor(seconds / 60);
+                const secs = seconds % 60;
+                return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
+            }
+        
+            // Update Timer Display
+            function updateDisplay() {
+                // Ensure timeLeft is a valid number
+                if (typeof timeLeft !== "number" || isNaN(timeLeft)) {
+                    console.warn("timeLeft was NaN, resetting to default Pomodoro time.");
+                    timeLeft = 1500; // Reset to 25 minutes
+                }
+                timerDisplay.textContent = formatTime(timeLeft);
+            }
+            
+        
+            // Start / Pause Timer
+            function toggleTimer() {
+                if (isRunning) {
+                    clearInterval(timer);
+                    isRunning = false;
+                } else {
+                    if (typeof timeLeft !== "number" || isNaN(timeLeft)) {
+                        timeLeft = 1500; // Reset if invalid
+                    }
+            
+                    isRunning = true;
+                    timer = setInterval(() => {
+                        if (timeLeft > 0) {
+                            timeLeft--;
+                            updateDisplay();
+                        } else {
+                            clearInterval(timer);
+                            isRunning = false;
+                        }
+                    }, 1000);
+                }
+            }
+            
+        
+            // Change Timer Mode
+            function changeMode(event) {
+                clearInterval(timer);
+                isRunning = false;
+                startBtn.textContent = "Start";
+        
+                modeButtons.forEach(button => {
+                    button.addEventListener("click", function () {
+                        const mode = this.textContent.trim();
+                        if (mode === "Pomodoro") {
+                            timeLeft = 1500; // 25 min
+                        } else if (mode === "Short Break") {
+                            timeLeft = 300; // 5 min
+                        } else if (mode === "Long Break") {
+                            timeLeft = 900; // 15 min
+                        }
+                
+                        // Prevent NaN issues when updating display
+                        if (isNaN(timeLeft) || typeof timeLeft !== "number") {
+                            timeLeft = 1500; // Default fallback
+                        }
+                
+                        updateDisplay();
+                    });
+                });
+                
+        
+                timeLeft = parseInt(event.target.getAttribute("data-time"));
+                updateDisplay();
+            }
+        
+            // Event Listeners
+            startBtn.addEventListener("click", toggleTimer);
+            modeButtons.forEach(button => button.addEventListener("click", changeMode));
+        
+            // Initialize Display
+            updateDisplay();
+        });
+
         document.addEventListener("DOMContentLoaded", function () {
+            // 🟢 TASK FUNCTIONS
             function handleTaskFormSubmit() {
                 const form = document.querySelector("#task-form");
                 const list = document.querySelector("#task-list");
                 const inputTask = document.querySelector("#task-input");
-                const taskCounter = document.querySelector("#task-counter");
         
                 if (form) {
                     form.addEventListener("submit", function (event) {
-                        event.preventDefault(); // Prevent full page reload
+                        event.preventDefault();
         
                         const formData = new FormData(form);
         
@@ -26,14 +117,14 @@
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
-                                // Create new list item
+                                // Create a new list item
                                 const newItem = document.createElement("li");
                                 newItem.classList.add("task-item");
         
                                 newItem.innerHTML = `
                                     <span class="task-number">${document.querySelectorAll(".task-item").length + 1}.</span>
                                     <span class="task-text">${data.task}</span>
-                                    <form class="delete-task-form" action="{{ url_for('delete_task', task_id=0) }}".replace('0', data.task_id) method="POST">
+                                    <form class="delete-task-form" action="${"{{ url_for('delete_task', task_id=0) }}".replace('0', data.task_id)}" method="POST">
                                         <button type="submit" class="delete-btn">Remove</button>
                                     </form>
                                 `;
@@ -41,8 +132,9 @@
                                 list.appendChild(newItem);
                                 inputTask.value = ""; // Clear input field
         
+                                updateTaskNumbers();
                                 updateTaskCount();
-                                attachTaskDeleteListeners();
+                                attachTaskDeleteListeners(); // Reattach delete functionality
                             }
                         })
                         .catch(error => console.error("Error adding task:", error));
@@ -83,8 +175,90 @@
                 }
             }
         
+            // 🟢 QUOTE FUNCTIONS
+            function handleQuoteFormSubmit() {
+                const form = document.querySelector("#quote-form");
+                const list = document.querySelector("#quote-list");
+                const inputQuote = document.querySelector("#quote-input");
+                const inputEmoji = document.querySelector("#emoji-input");
+        
+                if (form) {
+                    form.addEventListener("submit", function (event) {
+                        event.preventDefault();
+        
+                        const formData = new FormData(form);
+        
+                        fetch("{{ url_for('add_quote') }}", {
+                            method: "POST",
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Create a new list item
+                                const newItem = document.createElement("li");
+                                newItem.classList.add("quote-item");
+        
+                                newItem.innerHTML = `
+                                    <span class="quote-number">${document.querySelectorAll(".quote-item").length + 1}.</span>
+                                    <span class="quote-text">${data.quote} ${data.emoji || ""}</span>
+                                    <form class="delete-quote-form" action="${"{{ url_for('delete_quote', quote_id=0) }}".replace('0', data.quote_id)}" method="POST">
+                                        <button type="submit" class="delete-btn">Remove</button>
+                                    </form>
+                                `;
+        
+                                list.appendChild(newItem);
+                                inputQuote.value = "";
+                                inputEmoji.value = "";
+        
+                                updateQuoteNumbers();
+                                updateQuoteCount();
+                                attachQuoteDeleteListeners(); // Reattach delete functionality
+                            }
+                        })
+                        .catch(error => console.error("Error adding quote:", error));
+                    });
+                }
+            }
+        
+            function attachQuoteDeleteListeners() {
+                document.querySelectorAll(".delete-quote-form").forEach(form => {
+                    form.addEventListener("submit", function (event) {
+                        event.preventDefault();
+        
+                        fetch(this.action, { method: "POST" })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                this.parentElement.remove(); // Remove from DOM
+                                updateQuoteNumbers();
+                                updateQuoteCount();
+                            }
+                        })
+                        .catch(error => console.error("Error deleting quote:", error));
+                    });
+                });
+            }
+        
+            function updateQuoteNumbers() {
+                document.querySelectorAll(".quote-number").forEach((num, index) => {
+                    num.textContent = `${index + 1}.`;
+                });
+            }
+        
+            function updateQuoteCount() {
+                const quoteCounter = document.querySelector("#quote-counter");
+                const totalQuotes = document.querySelectorAll(".quote-item").length;
+                if (quoteCounter) {
+                    quoteCounter.textContent = `(${totalQuotes})`;
+                }
+            }
+        
+            // ✅ Initialize Both Task and Quote Listeners
             handleTaskFormSubmit();
+            handleQuoteFormSubmit();
             attachTaskDeleteListeners();
+            attachQuoteDeleteListeners();
         });
         
         </script>
@@ -97,7 +271,7 @@
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#tasks">Tasks</a></li>
-            <li><a href="#timer">Timer</a></li>
+            <li><a href="#timer-section">Timer</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="nav-buttons">
@@ -180,9 +354,18 @@
 </section>
 
     
-    <section id="timer">
-        <h2>Timer Section (Coming Soon)</h2>
-    </section>
+<section id="timer-section">
+    <h2>Timer</h2>
+    <div class="timer-container">
+        <div class="timer-modes">
+            <button class="mode-btn active" data-time="1500">Pomodoro</button>
+            <button class="mode-btn" data-time="300">Short Break</button>
+            <button class="mode-btn" data-time="900">Long Break</button>
+        </div>
+        <div class="timer-display">25:00</div>
+        <button id="start-btn">Start</button>
+    </div>
+</section>
     
     <section id="contact">
         <div class="contact-container">

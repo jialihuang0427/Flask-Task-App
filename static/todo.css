@@ -43,6 +43,14 @@
     text-shadow: 4px 4px 12px rgba(0, 0, 0, 0.5); /* Stronger text shadow */
 }
 
+#tasks h3, #quotes h3 {
+    font-size: 1.4rem; /* Even larger */
+    color: #1b2f93; /* Greenish-blue color */
+    font-family: Arial;
+   
+}
+
+
 /* 🟦 Style Icons: White with Shadow */
 .icon-container svg {
     width: 50px;
@@ -309,12 +317,18 @@ body {
     margin-right: 10px;
 }
 
+.task-deadline {
+    color: #888;
+    font-size: 14px;
+    margin-right: 15px; /* Spacing before remove button */
+}
+
 .task-text {
     flex-grow: 1; /* Ensures text takes available space */
 }
 
 .delete-btn {
-    background-color: #007bff;
+    background-color: #a51c27;
     color: white;
     border: none;
     padding: 6px 12px;
@@ -324,27 +338,11 @@ body {
 }
 
 .delete-btn:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #450505; /* Darker blue on hover */
 }
 
 
-/* 🟦 Styled Remove Buttons */
-.delete-btn {
-    background-color: #5aaccc;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s ease;
-}
 
-.delete-btn:hover {
-    background-color: #5c6bc0;
-    transform: scale(1.05);
-}
 /* Adjust Contact Section Height */
 #contact {
     width: 100%;
@@ -393,7 +391,7 @@ body {
     font-size: 14px;
 }
 
-.submit-btn {
+.submit-btn{
     background-color: #5aaccc;
     color: white;
     border: none;
@@ -401,6 +399,26 @@ body {
     font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
+}/* 🟦 Make "Add Task" Button the Same */
+
+
+/* 🟦 Common Style for "Add Task" & "Add Quote" Buttons */
+#task-form button, #quote-form button {
+    background-color: #5aaccc; /* Light Blue */
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+/* 🟦 Hover Effect for Both Buttons */
+#task-form button:hover, #quote-form button:hover {
+    background-color: #5c6bc0; /* Slightly darker blue */
+    transform: scale(1.05);
 }
 
 .submit-btn:hover {
@@ -443,4 +461,71 @@ body {
     text-align: center;
     padding: 10px;
     color: white;
+}
+
+#timer-section {
+    max-width: 600px;
+    margin: 50px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #0277bd;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.timer-container {
+    text-align: center;
+}
+
+.timer-modes {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.mode-btn {
+    background-color: #29b6f6;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.mode-btn.active {
+    background-color: #0277bd;
+}
+
+.mode-btn:hover {
+    background-color: #01579b;
+}
+
+.timer-display {
+    font-size: 60px;
+    font-weight: bold;
+    color: #0277bd;
+    margin: 20px 0;
+}
+
+#start-btn {
+    background-color: #0288d1;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#start-btn:hover {
+    background-color: #01579b;
 }
