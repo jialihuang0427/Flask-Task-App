@@ -6,50 +6,77 @@
     </head>
     
 <body>
-    <h2>To-Do List</h2>
-    <div class="container">
-        <div class="todo-section">
-            <h3>Your Tasks</h3>
-            <form method="POST">
-                <input type="text" name="task" placeholder="New Task" required>
-                <button type="submit">Add Task</button>
-            </form>
-            <ul>
-                {% for task in tasks %}
-                    <li>
-                        {{ task[1] }}
-                        <form action="{{ url_for('delete_task', task_id=task[0]) }}" method="POST">
-                            <button type="submit" class="delete-btn">Remove</button>
-                        </form>
-                    </li>
-                {% endfor %}
-            </ul>
+
+
+    <nav class="navbar">
+        <div class="logo"><span class="taskflow-font">TaskFlow</span></div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#tasks">Tasks</a></li>
+            <li><a href="#timer">Timer</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-buttons">
+            <a href="{{ url_for('logout') }}" class="btn logout-btn">Logout</a>
+            <button id="toggleMode" class="btn mode-btn">Light Mode</button>
         </div>
+    </nav>
 
-        <div class="quote-section">
-            <h3>Motivational Quotes ({{ quote_count }})</h3>
-            <ul>
-                {% for quote in quotes %}
-                    <li>
-                        {{ loop.index }}. {{ quote[1] }} {{ quote[2] }}
-                        <form action="{{ url_for('delete_quote', quote_id=quote[0]) }}" method="POST">
-                            <button type="submit" class="delete-btn">Remove</button>
-                        </form>
-                    </li>
-                {% endfor %}
-            </ul>
-            <form method="POST" action="{{ url_for('add_quote') }}">
-                <input type="text" name="quote" placeholder="New Quote" required>
-                <input type="text" name="emoji" placeholder="Emoji (optional)">
-                <button type="submit">Add Quote</button>
-            </form>
+
+   <section id="home">
+        <h2>Welcome to TaskFlow</h2>
+    </section>
+    
+    <section id="tasks">
+        <h2>To-Do List</h2>
+        <div class="container">
+            <div class="todo-section">
+                <h3>Your Tasks</h3>
+                <form method="POST">
+                    <input type="text" name="task" placeholder="New Task" required>
+                    <button type="submit">Add Task</button>
+                </form>
+                <ul>
+                    {% for task in tasks %}
+                        <li>
+                            {{ task[1] }}
+                            <form action="{{ url_for('delete_task', task_id=task[0]) }}" method="POST">
+                                <button type="submit" class="delete-btn">Remove</button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+    
+            <div class="quote-section">
+                <h3>Motivational Quotes ({{ quote_count }})</h3>
+                <ul>
+                    {% for quote in quotes %}
+                        <li>
+                            {{ loop.index }}. {{ quote[1] }} {{ quote[2] }}
+                            <form action="{{ url_for('delete_quote', quote_id=quote[0]) }}" method="POST">
+                                <button type="submit" class="delete-btn">Remove</button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <form method="POST" action="{{ url_for('add_quote') }}">
+                    <input type="text" name="quote" placeholder="New Quote" required>
+                    <input type="text" name="emoji" placeholder="Emoji (optional)">
+                    <button type="submit">Add Quote</button>
+                </form>
+            </div>
         </div>
-
-<!-- Logout Button -->
-<div style="text-align: center; margin-top: 20px;">
-    <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
-</div>
-
-    </div>
+    </section>
+    
+    <section id="timer">
+        <h2>Timer Section (Coming Soon)</h2>
+    </section>
+    
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>Email: support@taskflow.com</p>
+    </section>
+    
 </body>
 </html>

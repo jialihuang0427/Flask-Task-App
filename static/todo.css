@@ -1,3 +1,86 @@
+
+/* TaskFlow Font Styling */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
+
+.taskflow-font {
+    font-family: 'Dancing Script', cursive;
+    font-size: 26px;
+    font-weight: bold;
+    color: white;
+}
+
+/* 🟦 NAVBAR STYLING */
+.navbar {
+    background-color: #1a237e; /* Dark blue */
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links li {
+    display: inline;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: normal; /* Less bold */
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+/* 🟦 NAVBAR BUTTON STYLING */
+.nav-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.btn {
+    background-color: #3f51b5; /* Blue */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn:hover {
+    background-color: #5c6bc0; /* Lighter Blue */
+}
+
+/* 🟦 LIGHT MODE BUTTON */
+.mode-btn {
+    background-color: #00897b;
+}
+
+.mode-btn:hover {
+    background-color: #00a18f;
+}
+
+/* 🟦 SMOOTH SCROLLING */
+html {
+    scroll-behavior: smooth;
+}
+
+/* 🟦 SECTIONS STYLING */
+section {
+    padding: 50px 20px;
+    text-align: center;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
@@ -34,17 +117,3 @@ body {
     background-color: darkred;
 }
 
-.logout-btn {
-    background-color: red;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.logout-btn:hover {
-    background-color: darkred;
-}
