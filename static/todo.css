@@ -218,7 +218,7 @@ body {
 
 .container {
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: column; /* Stack sections */
     max-width: 1000px;
     margin: auto;
     padding: 30px;
@@ -226,27 +226,125 @@ body {
 }
 
 .todo-section, .quote-section {
-    width: 45%;
+    width: 100%;
     padding: 20px;
     border-radius: 10px;
     background: #eef2f7;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+.todo-section h3, .quote-section h3 {
+    font-size: 1.2 rem;
+    font-weight: bold;
+    color: #1a237e; /* Dark blue */
+    text-align: center;
+    font-family: Arial, sans-serif; /* No curly script */
+}
+
+/* 🟦 Make Sure Only These Sections Get Numbering */
+.todo-section ul, .quote-section ul {
+    list-style-type: none; /* Remove default bullet points */
+    padding: 0;
+    counter-reset: custom-counter; /* Reset counter */
+}
+
+
+
+.todo-section ul li, .quote-section ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Keep text left, button right */
+    padding: 10px 15px;
+    font-size: 1.1rem;
+    border-bottom: 1px solid #d1d5db; /* Light grey separation line */
+}
+
+/* 🟦 Apply Numbering Specific to These Lists */
+.todo-section ul li::before, .quote-section ul li::before {
+    content: counter(custom-counter) ". ";
+    counter-increment: custom-counter;
+    font-weight: bold;
+    color: #1a237e;
+}
+
+#quote-list {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0;
+}
+
+.quote-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Ensures spacing */
+    border-bottom: 1px solid #ccc; /* Light grey separator */
+    padding: 10px 0;
+}
+
+.quote-number {
+    font-weight: bold;
+    color: #007bff; /* Matches theme */
+    margin-right: 10px;
+}
+
+.quote-text {
+    flex-grow: 1; /* Ensures text takes available space */
+}
+
+#task-list {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc; /* Light grey separator */
+    padding: 10px 0;
+}
+
+.task-number {
+    font-weight: bold;
+    color: #007bff; /* Blue text for numbering */
+    margin-right: 10px;
+}
+
+.task-text {
+    flex-grow: 1; /* Ensures text takes available space */
+}
+
 .delete-btn {
-    background-color: red;
+    background-color: #007bff;
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 6px 12px;
     border-radius: 5px;
     cursor: pointer;
+    transition: 0.3s ease-in-out;
 }
 
 .delete-btn:hover {
-    background-color: darkred;
+    background-color: #0056b3; /* Darker blue on hover */
 }
 
 
+/* 🟦 Styled Remove Buttons */
+.delete-btn {
+    background-color: #5aaccc;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.delete-btn:hover {
+    background-color: #5c6bc0;
+    transform: scale(1.05);
+}
 /* Adjust Contact Section Height */
 #contact {
     width: 100%;

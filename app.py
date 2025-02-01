@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import psycopg2
 from flask_bcrypt import Bcrypt
 
@@ -34,10 +34,15 @@ def todo():
         if task:
             cur.execute("SELECT COUNT(*) FROM tasks WHERE user_id = %s AND task = %s", (session["user_id"], task))
             if cur.fetchone()[0] == 0:
-                cur.execute("INSERT INTO tasks (user_id, task) VALUES (%s, %s)", (session["user_id"], task))
+                cur.execute("INSERT INTO tasks (user_id, task) VALUES (%s, %s) RETURNING id", (session["user_id"], task))
+                task_id = cur.fetchone()[0]
                 conn.commit()
+                cur.close()
+                conn.close()
+                return jsonify({"success": True, "task": task, "task_id": task_id})  # ✅ Return JSON instead of redirect
 
-        return redirect(url_for("todo"))
+        return jsonify({"success": False})
+
 
     # Fetch tasks for the logged-in user
     cur.execute("SELECT id, task FROM tasks WHERE user_id = %s ORDER BY id ASC", (session["user_id"],))
@@ -68,7 +73,7 @@ def delete_task(task_id):
     cur.close()
     conn.close()
 
-    return redirect(url_for("todo"))
+    return jsonify({"success": True})
 
 @app.route("/add_quote", methods=["POST"])
 def add_quote():
@@ -78,12 +83,15 @@ def add_quote():
     if quote:
         conn = get_db_connection()
         cur = conn.cursor()
-        cur.execute("INSERT INTO quotes (quote, emoji) VALUES (%s, %s)", (quote, emoji))
+        cur.execute("INSERT INTO quotes (quote, emoji) VALUES (%s, %s) RETURNING id", (quote, emoji))
+        quote_id = cur.fetchone()[0]
         conn.commit()
         cur.close()
         conn.close()
+        return jsonify({"success": True, "quote": quote, "emoji": emoji, "quote_id": quote_id})  # ✅ Return JSON
 
-    return redirect(url_for("todo"))
+    return jsonify({"success": False})
+
 
 @app.route("/delete_quote/<int:quote_id>", methods=["POST"])
 def delete_quote(quote_id):
@@ -94,7 +102,8 @@ def delete_quote(quote_id):
     cur.close()
     conn.close()
 
-    return redirect(url_for("todo"))
+    return jsonify({"success": True})  # ✅ Return JSON instead of redirect
+
 
 # 🟢 LOGIN ROUTE
 @app.route("/login", methods=["GET", "POST"])

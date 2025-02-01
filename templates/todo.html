@@ -5,6 +5,90 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='todo.css') }}">
     </head>
     
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            function handleTaskFormSubmit() {
+                const form = document.querySelector("#task-form");
+                const list = document.querySelector("#task-list");
+                const inputTask = document.querySelector("#task-input");
+                const taskCounter = document.querySelector("#task-counter");
+        
+                if (form) {
+                    form.addEventListener("submit", function (event) {
+                        event.preventDefault(); // Prevent full page reload
+        
+                        const formData = new FormData(form);
+        
+                        fetch("{{ url_for('todo') }}", {
+                            method: "POST",
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Create new list item
+                                const newItem = document.createElement("li");
+                                newItem.classList.add("task-item");
+        
+                                newItem.innerHTML = `
+                                    <span class="task-number">${document.querySelectorAll(".task-item").length + 1}.</span>
+                                    <span class="task-text">${data.task}</span>
+                                    <form class="delete-task-form" action="{{ url_for('delete_task', task_id=0) }}".replace('0', data.task_id) method="POST">
+                                        <button type="submit" class="delete-btn">Remove</button>
+                                    </form>
+                                `;
+        
+                                list.appendChild(newItem);
+                                inputTask.value = ""; // Clear input field
+        
+                                updateTaskCount();
+                                attachTaskDeleteListeners();
+                            }
+                        })
+                        .catch(error => console.error("Error adding task:", error));
+                    });
+                }
+            }
+        
+            function attachTaskDeleteListeners() {
+                document.querySelectorAll(".delete-task-form").forEach(form => {
+                    form.addEventListener("submit", function (event) {
+                        event.preventDefault();
+        
+                        fetch(this.action, { method: "POST" })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                this.parentElement.remove(); // Remove from DOM
+                                updateTaskNumbers();
+                                updateTaskCount();
+                            }
+                        })
+                        .catch(error => console.error("Error deleting task:", error));
+                    });
+                });
+            }
+        
+            function updateTaskNumbers() {
+                document.querySelectorAll(".task-number").forEach((num, index) => {
+                    num.textContent = `${index + 1}.`;
+                });
+            }
+        
+            function updateTaskCount() {
+                const taskCounter = document.querySelector("#task-counter");
+                const totalTasks = document.querySelectorAll(".task-item").length;
+                if (taskCounter) {
+                    taskCounter.textContent = `(${totalTasks})`;
+                }
+            }
+        
+            handleTaskFormSubmit();
+            attachTaskDeleteListeners();
+        });
+        
+        </script>
+        
 <body>
 
 
@@ -18,7 +102,7 @@
         </ul>
         <div class="nav-buttons">
             <a href="{{ url_for('logout') }}" class="btn logout-btn">Log Out</a>
-            <button id="toggleMode" class="btn mode-btn">Light Mode</button>
+            <button id="toggleMode" class="btn mode-btn"> Dark Mode</button>
         </div>
     </nav>
 
@@ -49,47 +133,52 @@
     </section>
     
     
+    <a id="tasks-section"></a> <!-- Hidden anchor to scroll back here -->
+
     <section id="tasks">
-        <h2>To-Do List</h2>
-        <div class="container">
-            <div class="todo-section">
-                <h3>Your Tasks</h3>
-                <form method="POST">
-                    <input type="text" name="task" placeholder="New Task" required>
-                    <button type="submit">Add Task</button>
-                </form>
-                <ul>
-                    {% for task in tasks %}
-                        <li>
-                            {{ task[1] }}
-                            <form action="{{ url_for('delete_task', task_id=task[0]) }}" method="POST">
-                                <button type="submit" class="delete-btn">Remove</button>
-                            </form>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
+        <h3>To-Do List <span id="task-counter">({{ tasks|length }})</span></h3> <!-- Display task count -->
     
-            <div class="quote-section">
-                <h3>Motivational Quotes ({{ quote_count }})</h3>
-                <ul>
-                    {% for quote in quotes %}
-                        <li>
-                            {{ loop.index }}. {{ quote[1] }} {{ quote[2] }}
-                            <form action="{{ url_for('delete_quote', quote_id=quote[0]) }}" method="POST">
-                                <button type="submit" class="delete-btn">Remove</button>
-                            </form>
-                        </li>
-                    {% endfor %}
-                </ul>
-                <form method="POST" action="{{ url_for('add_quote') }}">
-                    <input type="text" name="quote" placeholder="New Quote" required>
-                    <input type="text" name="emoji" placeholder="Emoji (optional)">
-                    <button type="submit">Add Quote</button>
-                </form>
-            </div>
-        </div>
+        <form id="task-form" action="{{ url_for('todo') }}" method="POST">
+            <input type="text" id="task-input" name="task" placeholder="New Task" required>
+            <button type="submit">Add Task</button>
+        </form>
+    
+        <ul id="task-list">
+            {% for task in tasks %}
+                <li class="task-item">
+                    <span class="task-number">{{ loop.index }}.</span> <!-- Numbering -->
+                    <span class="task-text">{{ task[1] }}</span>
+                    <form class="delete-task-form" action="{{ url_for('delete_task', task_id=task[0]) }}" method="POST">
+                        <button type="submit" class="delete-btn">Remove</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
     </section>
+    
+    
+<section id="quotes">
+    <h3>Motivational Quotes <span id="quote-counter">({{ quote_count }})</span></h3> <!-- Display total count -->
+    
+    <form id="quote-form" action="{{ url_for('add_quote') }}" method="POST">
+        <input type="text" id="quote-input" name="quote" placeholder="New Quote" required>
+        <input type="text" id="emoji-input" name="emoji" placeholder="Emoji (optional)">
+        <button type="submit">Add Quote</button>
+    </form>
+
+    <ul id="quote-list">
+        {% for quote in quotes %}
+            <li class="quote-item">
+                <span class="quote-number">{{ loop.index }}.</span> <!-- Numbering -->
+                <span class="quote-text">{{ quote[1] }} {{ quote[2] }}</span>
+                <form class="delete-quote-form" action="{{ url_for('delete_quote', quote_id=quote[0]) }}" method="POST">
+                    <button type="submit" class="delete-btn">Remove</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</section>
+
     
     <section id="timer">
         <h2>Timer Section (Coming Soon)</h2>
