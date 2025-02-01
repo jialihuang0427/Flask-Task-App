@@ -2,20 +2,42 @@
 <html lang="en">
 <head>
     <title>Register</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
 </head>
-<body>
-    <h2>Register</h2>
-    <form method="POST">
-        <input type="text" name="username" placeholder="Username" required><br>
-        <input type="password" name="password" placeholder="Password" required><br>
-        <div class="button-container">
-            <!-- Back to Login Button -->
-            <a href="{{ url_for('login') }}" class="back-btn">Back to Login</a>
 
-            <!-- Register Button -->
-            <button type="submit" class="register-btn">Register</button>
+<body>
+    <div class="container">
+        <!-- Left Side: Registration Form -->
+        <div class="register-section">
+            <div class="heading-container">
+                <h1 class="start-journey">Join the Taskflow Community</h1>
+                <h2 class="sign-in-text">Create your <span class="taskflow">TaskFlow</span> Account</h2>
+            </div>
+            
+            {% if error %}
+                <p class="error">{{ error }}</p>
+            {% endif %}
+            
+            <form method="POST">
+                <div class="input-group">
+                    <label>Username</label>
+                    <input type="text" name="username" placeholder="Choose a username" required>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="Create a password" required>
+                </div>
+                <button type="submit" class="btn">Register</button>
+            </form>
+
+            <p class="bottom-text">Already have an account? <a href="{{ url_for('login') }}">Sign In</a></p>
         </div>
-    </form>
+
+        <!-- Right Side: Background Image -->
+        <div class="image-section">
+            <img src="{{ url_for('static', filename='back.jpg') }}" alt="Background Image">
+        </div>
+    </div>
 </body>
 </html>
