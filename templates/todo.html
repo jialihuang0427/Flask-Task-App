@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .todo-section, .quote-section {
+            width: 45%;
+            padding: 15px;
+            border-radius: 5px;
+            background: #f8f9fa;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .delete-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2>To-Do List</h2>
+    <div class="container">
+        <div class="todo-section">
+            <h3>Your Tasks</h3>
+            <form method="POST">
+                <input type="text" name="task" placeholder="New Task" required>
+                <button type="submit">Add Task</button>
+            </form>
+            <ul>
+                {% for task in tasks %}
+                    <li>
+                        {{ task[1] }}
+                        <form action="{{ url_for('delete_task', task_id=task[0]) }}" method="POST">
+                            <button type="submit" class="delete-btn">Remove</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="quote-section">
+            <h3>Motivational Quotes ({{ quote_count }})</h3>
+            <ul>
+                {% for quote in quotes %}
+                    <li>
+                        {{ loop.index }}. {{ quote[1] }} {{ quote[2] }}
+                        <form action="{{ url_for('delete_quote', quote_id=quote[0]) }}" method="POST">
+                            <button type="submit" class="delete-btn">Remove</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+            <form method="POST" action="{{ url_for('add_quote') }}">
+                <input type="text" name="quote" placeholder="New Quote" required>
+                <input type="text" name="emoji" placeholder="Emoji (optional)">
+                <button type="submit">Add Quote</button>
+            </form>
+        </div>
+
+<!-- Logout Button -->
+<div style="text-align: center; margin-top: 20px;">
+    <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+</div>
+
+    </div>
+</body>
+</html>
