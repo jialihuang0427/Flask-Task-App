@@ -18,8 +18,8 @@
             noteForm.addEventListener("submit", function (event) {
                 event.preventDefault();
         
-                if (notesContainer.children.length >= 10) {
-                    alert("You can only add up to 10 sticky notes.");
+                if (notesContainer.children.length >= 15) {
+                    alert("You can only add up to 15 sticky notes.");
                     return;
                 }
         
@@ -401,6 +401,7 @@
 
 <section id="sticky-notes">
     <h3>Sticky Notes</h3>
+    <p>You can only add up to 15 sticky notes</p>
     <form id="note-form">
         <input type="text" id="note-input" placeholder="Write a note..." required>
         <button type="submit">Add Note</button>
