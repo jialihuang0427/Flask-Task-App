@@ -352,7 +352,7 @@
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#tasks">Tasks</a></li>
-            <li><a href="#timer-section">Timer</a></li>
+            <li><a href="#timerheading">Timer</a></li>
             <li><a href="#Techniques">Techniques</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
@@ -450,7 +450,7 @@
 
 <section id="sticky-notes">
     <h3>Sticky Notes</h3>
-    <p>You can only add up to 15 sticky notes</p>
+    <p class = "sticky-msg">You can only add up to 15 sticky notes</p>
     <form id="note-form">
         <input type="text" id="note-input" placeholder="Write a note..." required>
         <button type="submit">Add Note</button>
@@ -464,28 +464,56 @@
 <div id="Techniques">
     <div class="container">
         <h1 class="sub-title">Techniques</h1>
-        <div class="services-list">
-            <div class="service-box">
-                <i class="fa-solid fa-code"></i>
-                <h2>Web Design</h2>
-                <p>Creating visually appealing and user-friendly interfaces for websites. 
-                    Focusing on user experiences for ease of navigation.</p>
-            </div>
-            <div class="service-box">
-                <i class="fa-solid fa-microchip"></i>
-                <h2>Web Development</h2>
-                <p>Technical process of building websites to ensure smooth functionality.</p>
-            </div>
-            <div class="service-box">
-                <i class="fa-solid fa-chart-bar"></i>
-                <h2>Data Visualization</h2>
-                <p>Graphical representation of data, turning complex datasets into easy-to-understand visualizations.</p>
-            </div>
+        
+<p class="techniques-description">Click on the links below to explore useful techniques for improving productivity and workflow management.</p>
+
+<div class="services-list">
+    <!-- Pomodoro Technique -->
+    <div class="service-box">
+        <i class="fa-solid fa-clock"></i>
+        <h2>Pomodoro Technique</h2>
+        <p>Boost your productivity by working in focused 25-minute intervals, followed by short 5-minute breaks. 
+            This technique helps maintain concentration, prevent burnout, and improve time management.  Use the pomodoro timer below !</p>
+        <div class="btn-container">
+            <a href="https://todoist.com/productivity-methods/pomodoro-technique" class="info-btn" target="_blank">More Info</a>
+        </div>
+    </div>
+
+    <!-- Eisenhower Matrix -->
+    <div class="service-box">
+        <i class="fa-solid fa-list-check"></i>
+        <h2>Eisenhower Matrix</h2>
+        <p>Prioritise tasks efficiently by categorising them into four quadrants based on urgency and importance. 
+            This method helps you focus on what truly matters and avoid spending time on unimportant distractions.</p>
+        <div class="btn-container">
+            <a href="https://www.eisenhower.me/eisenhower-matrix/" class="info-btn" target="_blank">More Info</a>
+        </div>
+    </div>
+
+    <!-- 80/20 Rule -->
+    <div class="service-box">
+        <i class="fa-solid fa-chart-pie"></i>
+        <h2>80/20 Rule</h2>
+        <p>Also known as the Pareto Principle, this rule suggests that 80% of your results come from 20% of your efforts. 
+            By identifying the most impactful tasks, you can maximize efficiency and achieve better outcomes with less effort.</p>
+        <div class="btn-container">
+            <a href="https://asana.com/resources/pareto-principle-80-20-rule" class="info-btn" target="_blank">More Info</a>
         </div>
     </div>
 </div>
 
-    
+    </div>
+</div>
+
+<div id="timerheading">
+    <div class="container">
+        <h1 class="sub-title">Organise your Time</h1>
+        <p class="timer-description">This Pomodoro Timer is designed to help you boost productivity 
+            by breaking work into focused intervals. The Pomodoro Technique follows a 25-minute work session
+             followed by a 5-minute short break to maintain concentration and prevent burnout. For longer tasks,
+              you can take a 15-minute long break after completing multiple sessions. Use the buttons to switch 
+              between modes and press Start to begin your session. This method is great for time management, 
+              helping you stay efficient and focused while avoiding distractions. </p>
 <section id="timer-section">
     <h2>Timer</h2>
     <div class="timer-container">
@@ -497,8 +525,9 @@
         <div class="timer-display">25:00</div>
         <button id="start-btn">Start</button>
     </div>
+</div>
 </section>
-    
+</div>
     <section id="contact">
         <div class="contact-container">
             <!-- Left: Contact Form -->

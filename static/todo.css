@@ -47,11 +47,11 @@
 
 
 #tasks h3 {
-    font-size: 1.8rem; /* Slightly larger */
+    font-size: 1.6rem; /* Increase font size */
+    font-family: "Roboto", sans-serif;
     color: #1a237e;
+    font-weight: bold;
     text-align: center;
-    font-family: "Caveat Brush", serif;
-    font-weight: 400;
     font-style: normal;
 }
 
@@ -247,11 +247,12 @@ body {
 }
 
 .todo-section h3, .quote-section h3 {
-    font-size: 1.2 rem;
+    
     font-weight: bold;
     color: #1a237e; /* Dark blue */
     text-align: center;
-    font-family: Arial, sans-serif; /* No curly script */
+    font-size: 1.6rem; /* Increase font size */
+    font-family: "Roboto", sans-serif;
 }
 
 /* 🟦 Make Sure Only These Sections Get Numbering */
@@ -403,7 +404,7 @@ body {
     background-color: #5aaccc; /* Light Blue */
     color: white;
     border: none;
-    padding: 4px 12px;
+    padding: 6px 12px;
     border-radius: 8px;
     font-size: 14px;
     font-weight: bold;
@@ -461,7 +462,7 @@ body {
 }
 
 #timer-section {
-    max-width: 600px;
+    max-width: 1000px; /* Increase width */
     margin: 50px auto;
     background: white;
     padding: 20px;
@@ -536,30 +537,29 @@ h2 {
 
 /* Match heading size and color */
 #Techniques h1 {
-    font-size: 1.4rem; /* Same as "Tasks" & "Motivational Quotes" */
-    font-family: Arial, sans-serif; 
+    font-size: 1.6rem; /* Increase font size */
+    font-family: "Roboto", sans-serif; 
     color: #1b2f93;
-    margin-bottom: 15px; /* Reduce space below title */
+    margin-bottom: 15px;
+    text-align: left; /* Center text */
 }
 
-/* Services Grid Layout */
-.services-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    grid-gap: 20px; /* Reduce spacing between boxes */
-    margin-top: 30px; /* Move up */
-}
 
-/* Individual Service Box */
-.service-box {
-    background: #262626;
-    padding: 30px; /* Reduce padding for a more compact look */
-    font-size: 16px;
-    font-weight: 400;
+.techniques-description {
     text-align: center;
-    border-radius: 10px;
-    transition: background 0.5s, transform 0.5s;
+    font-size: 1rem;
+    color: black; /* Darker gray for readability */
+    margin-bottom: 15px;
 }
+
+#timerheading h1 {
+    font-size: 1.6rem; /* Increase font size */
+    font-family: "Roboto", sans-serif; 
+    color: #1b2f93;
+    margin-bottom: 15px;
+    text-align: left; /* Center text */
+}
+
 
 /* Icon Styling */
 .service-box i {
@@ -593,31 +593,67 @@ h2 {
     background-color: #f7f7f7;
     padding: 20px;
     border-radius: 10px;
-    margin-top: 20px;
+    margin-top: -70px;
+}
+
+.sticky-msg{
+    font-family: "Caveat Brush", serif;
+    font-size: 16px;
+    color: #be3098; /* Darker pinkish-purple */
+    text-align: center;
+    margin-top: 10px; /* Add spacing from the to-do list */
 }
 
 #note-form {
     display: flex;
+    align-items: center;
     justify-content: center;
+    flex-wrap: wrap;  /* Allows wrapping on smaller screens */
     gap: 10px;
-    margin-bottom: 20px;
+    max-width: 400px; /* Prevents form from stretching across the page */
+    margin: auto; /* Centers the form */
+    background: none; /* Remove background */
+    padding: 12px 20px;
+    box-shadow: none; /* Remove shadow */
+    border: none; /* Remove border */
 }
 
+/* Fix the input field */
 #note-input {
-    padding: 8px;
-    width: 250px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    padding: 10px;
+    border: 2px solid #ff99cc;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+    width: 250px; /* Set a fixed width */
+    transition: all 0.3s ease;
 }
 
+/* 🟦 Focus Effect on Input */
+#note-input:focus {
+    border-color: #ff66b2;
+    box-shadow: 0px 0px 5px rgba(255, 102, 178, 0.5);
+}
+
+/* 🟦 Style the Add Note Button */
 #note-form button {
-    background-color: #5aaccc;
+    background-color: #ff66b2; /* Pink */
     color: white;
     border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
     cursor: pointer;
+    transition: 0.3s ease;
 }
+
+/* 🟦 Hover Effect */
+#note-form button:hover {
+    background-color: #ff3385;
+    transform: scale(1.05);
+}
+
 
 #notes-container {
     display: flex;
@@ -627,7 +663,7 @@ h2 {
 }
 
 .sticky-note {
-    background-color: #fff58c;
+    background-color: #ffccdd; /* Light pink */
     width: 150px;
     height: 150px;
     padding: 10px;
@@ -637,6 +673,16 @@ h2 {
     font-size: 14px;
     text-align: left;
 }
+
+#sticky-notes h3 {
+    font-size: 1.6rem; /* Increase font size */
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    color: #be3098; /* Darker pinkish-purple */
+    text-align: center;
+    font-style: normal;
+}
+
 
 .delete-note {
     position: absolute;
@@ -692,6 +738,7 @@ h2 {
     background: #f1f1f1; /* Light grey on hover */
     transition: background 0.3s ease-in-out;
 }
+
 
 
 
@@ -760,12 +807,11 @@ h2 {
 }
 
 .todo-message {
-    font-family: Arial, sans-serif;
+    font-family: "Caveat Brush", serif;
     font-size: 16px;
     color: #1a237e;
     text-align: center;
     margin-top: 10px; /* Add spacing from the to-do list */
-    font-style: italic;
 }
 
 /* 🟦 Motivational Quotes Section - Styled Like To-Do List */
@@ -788,11 +834,11 @@ h2 {
 
 /* 🟦 Motivational Quotes Header */
 #quotes h3 {
-    font-size: 1.8rem;
     color: #3f51b5; /* Darker blue */
     text-align: center;
-    font-family: "Caveat Brush", serif;
-    font-weight: 400;
+    font-weight: bold;
+    font-size: 1.6rem; /* Increase font size */
+    font-family: "Roboto", sans-serif;
     font-style: normal;
 }
 
@@ -892,4 +938,65 @@ h2 {
 #quote-form button:hover {
     background-color: #5c6bc0;
     transform: scale(1.05);
+}
+
+.services-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.service-box {
+    background: #b0c4de; /* Pastel blue */
+    padding: 30px;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+    border-radius: 10px;
+    transition: background 0.5s, transform 0.5s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    min-height: 300px; /* Set a uniform minimum height */
+    flex: 1; /* Ensures all boxes stretch evenly */
+}
+
+/* Make sure the button container pushes the button to the bottom */
+.btn-container {
+    margin-top: auto;
+    padding-top: 10px;
+}
+
+/* Style the "More Info" button */
+.info-btn {
+    display: inline-block;
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    background-color: #5aaccc; /* Pastel blue */
+    border-radius: 5px;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.info-btn:hover {
+    background-color: #007bff; /* Slightly darker blue on hover */
+    transform: scale(1.05);
+}
+
+/* Ensure all text inside service-box is BLACK */
+.service-box h2,
+.service-box p,
+.service-box i {
+    color: black !important; /* Forces all text to be black */
+}
+
+.timer-description{
+    text-align: left;
+    font-size: 1rem;
+    color: black; /* Darker gray for readability */
+    margin-bottom: 15px;
 }
