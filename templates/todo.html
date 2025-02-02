@@ -15,35 +15,78 @@
             const noteInput = document.getElementById("note-input");
             const notesContainer = document.getElementById("notes-container");
         
-            noteForm.addEventListener("submit", function (event) {
-                event.preventDefault();
+            // Load sticky notes from the database
+            function loadNotes() {
+                fetch("/get_sticky_notes")
+                    .then(response => response.json())
+                    .then(notes => {
+                        notesContainer.innerHTML = ""; // Clear existing
+                        notes.forEach(note => addNoteToDOM(note.id, note.note));
+                    })
+                    .catch(error => console.error("Error loading notes:", error));
+            }
         
-                if (notesContainer.children.length >= 15) {
-                    alert("You can only add up to 15 sticky notes.");
-                    return;
-                }
+            // Add note to the DOM
+            function addNoteToDOM(noteId, noteText) {
+                if (notesContainer.children.length >= 15) return;
         
-                const noteText = noteInput.value.trim();
-                if (noteText === "") return;
-        
-                // Create sticky note element
                 const noteDiv = document.createElement("div");
                 noteDiv.classList.add("sticky-note");
                 noteDiv.textContent = noteText;
+                noteDiv.setAttribute("data-id", noteId);
         
-                // Create delete button
+                // Delete button
                 const deleteBtn = document.createElement("button");
                 deleteBtn.classList.add("delete-note");
                 deleteBtn.textContent = "X";
                 deleteBtn.addEventListener("click", function () {
-                    noteDiv.remove();
+                    deleteNoteFromDB(noteId, noteDiv);
                 });
         
                 noteDiv.appendChild(deleteBtn);
                 notesContainer.appendChild(noteDiv);
-                noteInput.value = ""; // Clear input field
+            }
+        
+            // Handle adding a new sticky note
+            noteForm.addEventListener("submit", function (event) {
+                event.preventDefault();
+                const noteText = noteInput.value.trim();
+                if (noteText === "") return;
+        
+                fetch("/add_sticky_note", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ note: noteText })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        addNoteToDOM(data.id, data.note);
+                        noteInput.value = ""; // Clear input field
+                    } else {
+                        alert(data.message || "Failed to add note.");
+                    }
+                })
+                .catch(error => console.error("Error adding note:", error));
             });
+        
+            // Delete note from database
+            function deleteNoteFromDB(noteId, noteElement) {
+                fetch(`/delete_sticky_note/${noteId}`, { method: "POST" })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            noteElement.remove();
+                        } else {
+                            alert("Failed to delete note.");
+                        }
+                    })
+                    .catch(error => console.error("Error deleting note:", error));
+            }
+        
+            loadNotes(); // Load notes when page loads
         });
+        
         
         document.addEventListener("DOMContentLoaded", () => {
             let timer;
@@ -399,6 +442,8 @@
     </ul>
 </section>
 
+
+
 <section id="sticky-notes">
     <h3>Sticky Notes</h3>
     <p>You can only add up to 15 sticky notes</p>
@@ -408,6 +453,7 @@
     </form>
     <div id="notes-container"></div> <!-- Notes appear here -->
 </section>
+
 
 
 <!-- Techniques Section -->

@@ -19,6 +19,15 @@ CREATE TABLE IF NOT EXISTS users (
 );
 """)
 
+# Create sticky_notes table
+cur.execute("""
+CREATE TABLE IF NOT EXISTS sticky_notes (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    note TEXT NOT NULL
+);
+""")
+
 # Create tasks table
 cur.execute("""
 CREATE TABLE IF NOT EXISTS tasks (

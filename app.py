@@ -75,6 +75,62 @@ def delete_task(task_id):
 
     return jsonify({"success": True})
 
+@app.route("/get_sticky_notes")
+def get_sticky_notes():
+    if "user_id" not in session:
+        return jsonify([])
+
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT id, note FROM sticky_notes WHERE user_id = %s ORDER BY id ASC", (session["user_id"],))
+    notes = [{"id": row[0], "note": row[1]} for row in cur.fetchall()]
+    
+    cur.close()
+    conn.close()
+    return jsonify(notes)
+
+@app.route("/add_sticky_note", methods=["POST"])
+def add_sticky_note():
+    if "user_id" not in session:
+        return jsonify({"success": False})
+
+    note_text = request.json.get("note", "").strip()
+    if not note_text:
+        return jsonify({"success": False})
+
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    # Check limit (Max 15 notes per user)
+    cur.execute("SELECT COUNT(*) FROM sticky_notes WHERE user_id = %s", (session["user_id"],))
+    if cur.fetchone()[0] >= 15:
+        cur.close()
+        conn.close()
+        return jsonify({"success": False, "message": "You can only add up to 15 sticky notes."})
+
+    # Insert into database
+    cur.execute("INSERT INTO sticky_notes (user_id, note) VALUES (%s, %s) RETURNING id", (session["user_id"], note_text))
+    note_id = cur.fetchone()[0]
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    return jsonify({"success": True, "id": note_id, "note": note_text})
+@app.route("/delete_sticky_note/<int:note_id>", methods=["POST"])
+def delete_sticky_note(note_id):
+    if "user_id" not in session:
+        return jsonify({"success": False})
+
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    cur.execute("DELETE FROM sticky_notes WHERE id = %s AND user_id = %s", (note_id, session["user_id"]))
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    return jsonify({"success": True})
+
 @app.route("/add_quote", methods=["POST"])
 def add_quote():
     quote = request.form["quote"].strip()
