@@ -161,7 +161,6 @@ def delete_quote(quote_id):
     return jsonify({"success": True})  # ✅ Return JSON instead of redirect
 
 
-# 🟢 LOGIN ROUTE
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -171,7 +170,6 @@ def login():
         conn = get_db_connection()
         cur = conn.cursor()
 
-        # Check if user exists
         cur.execute("SELECT id, password FROM users WHERE username = %s", (username,))
         user = cur.fetchone()
 
