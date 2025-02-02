@@ -44,12 +44,7 @@
     text-shadow: 4px 4px 12px rgba(0, 0, 0, 0.5); /* Stronger text shadow */
 }
 
-#quotes h3 {
-    font-size: 1.4rem; /* Even larger */
-    color: #1b2f93; /* Greenish-blue color */
-    font-family: Arial;
-   
-}
+
 
 #tasks h3 {
     font-size: 1.8rem; /* Slightly larger */
@@ -316,7 +311,7 @@ body {
     font-weight: bold;
     color: #6c757d; /* Grey color */
     margin-right: 10px;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 }
 
 
@@ -408,11 +403,12 @@ body {
     background-color: #5aaccc; /* Light Blue */
     color: white;
     border: none;
-    padding: 6px 12px;
+    padding: 4px 12px;
     border-radius: 8px;
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
+    white-space: nowrap; /* Prevents text breaking into two lines */
     transition: 0.3s ease;
 }
 
@@ -659,6 +655,8 @@ h2 {
     align-items: center;
     justify-content: center;
     text-align: center;
+    max-width: 600px; /* Keep a max width to avoid being too large */
+    min-width: 300px; /* Ensures it doesn't shrink too much */
     margin: 200px auto;  /* Increase top margin */
     width: 50%;
     padding: 20px; /* Add spacing inside the box */
@@ -696,10 +694,6 @@ h2 {
 }
 
 
-/* Task Number Styling */
-.task-number {
-    color: grey;
-}
 
 
 /* 🟦 Style Task Text */
@@ -718,11 +712,13 @@ h2 {
     align-items: center;
     justify-content: center;
     gap: 10px;
+    flex-wrap: wrap;  /* Ensures items wrap to new lines if needed */
     background: #ffffff; /* White background */
     padding: 12px 20px;
     border-radius: 12px; /* Rounded corners */
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
 }
+
 #task-input {
     flex-grow: 1;
     padding: 10px;
@@ -730,7 +726,8 @@ h2 {
     border-radius: 8px;
     outline: none;
     font-size: 16px;
-    width: 250px;
+    width: 100%;  /* Make inputs fully responsive */
+    min-width: 150px;
     transition: all 0.3s ease;
 }
 
@@ -769,4 +766,130 @@ h2 {
     text-align: center;
     margin-top: 10px; /* Add spacing from the to-do list */
     font-style: italic;
+}
+
+/* 🟦 Motivational Quotes Section - Styled Like To-Do List */
+#quotes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 600px; /* Keep a max width to avoid being too large */
+    min-width: 300px; /* Ensures it doesn't shrink too much */
+    text-align: center;
+    margin: 200px auto;  /* Increase top margin */
+    width: 50%;
+    padding: 20px; /* Add spacing inside the box */
+    background: #eef4ff; /* Light blue/purple background */
+    border-radius: 15px; /* Rounded edges */
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    border: 2px solid #cfd8ff; /* Light blue border */
+}
+
+/* 🟦 Motivational Quotes Header */
+#quotes h3 {
+    font-size: 1.8rem;
+    color: #3f51b5; /* Darker blue */
+    text-align: center;
+    font-family: "Caveat Brush", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* 🟦 Make the Quote List Look Like the Task List */
+#quote-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+/* 🟦 Individual Quote Item */
+.quote-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ffffff;
+    padding: 12px 20px;
+    border-radius: 10px;
+    margin: 8px 0;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    transition: background 0.3s ease-in-out; /* Smooth transition */
+}
+
+/* 🟦 Hover Effect - Makes the Quote Item Greyer */
+.quote-item:hover {
+    background: #e6ebff; /* Light purple on hover */
+    transition: background 0.3s ease-in-out;
+}
+
+/* 🟦 Quote Number Styling */
+.quote-number {
+    font-weight: bold;
+    color: grey;
+    margin-right: 0.8rem;
+}
+
+/* 🟦 Quote Text Styling */
+.quote-text {
+    flex-grow: 1;
+    padding-left: 10px;
+    font-size: 15px;
+    font-style: italic; /* Italicized text */
+    color: #3f51b5; /* Darker blue */
+}
+
+/* 🟦 Style the Add Quote Form */
+#quote-form {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;  /* Ensures items wrap to new lines if needed */
+    justify-content: center;
+    gap: 10px;
+    background: #ffffff; /* White background */
+    padding: 12px 20px;
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+/* 🟦 Style the Quote Input */
+#quote-input, #emoji-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 2px solid #cfd8ff;
+    border-radius: 8px;
+    outline: none;
+    font-size: 16px;
+    width: 100%;  /* Make inputs fully responsive */
+    min-width: 150px;
+    transition: all 0.3s ease;
+}
+
+/* 🟦 Focus Effect on Input */
+#quote-input:focus, #emoji-input:focus {
+    border-color: #5aaccc;
+    box-shadow: 0px 0px 5px rgba(90, 172, 204, 0.5);
+}
+
+/* 🟦 Style the Add Quote Button */
+#quote-form button {
+    background-color: #5aaccc; /* Light Blue */
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 🟦 Button Hover Effect */
+#quote-form button:hover {
+    background-color: #5c6bc0;
+    transform: scale(1.05);
 }

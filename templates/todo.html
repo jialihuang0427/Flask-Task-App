@@ -422,28 +422,30 @@
     </section>
     
     
-<section id="quotes">
-    <h3>Motivational Quotes <span id="quote-counter">({{ quote_count }})</span></h3> <!-- Display total count -->
+    <section id="quotes">
+        <h3>Motivational Quotes <span id="quote-counter">({{ quote_count }})</span></h3> <!-- Display total count -->
+        
+        <form id="quote-form" action="{{ url_for('add_quote') }}" method="POST">
+            <input type="text" id="quote-input" name="quote" placeholder="New Quote" required>
+            <input type="text" id="emoji-input" name="emoji" placeholder="Emoji (optional)">
+            <button type="submit">Add Quote</button>
+        </form>
     
-    <form id="quote-form" action="{{ url_for('add_quote') }}" method="POST">
-        <input type="text" id="quote-input" name="quote" placeholder="New Quote" required>
-        <input type="text" id="emoji-input" name="emoji" placeholder="Emoji (optional)">
-        <button type="submit">Add Quote</button>
-    </form>
+        <ul id="quote-list">
+            {% for quote in quotes %}
+                <li class="quote-item">
+                    <span class="quote-number">{{ loop.index }}.</span> <!-- Numbering -->
+                    <span class="quote-text">{{ quote[1] }} {{ quote[2] }}</span>
+                    <form class="delete-quote-form" action="{{ url_for('delete_quote', quote_id=quote[0]) }}" method="POST">
+                        <button type="submit" class="delete-btn">Remove</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+    
 
-    <ul id="quote-list">
-        {% for quote in quotes %}
-            <li class="quote-item">
-                <span class="quote-number">{{ loop.index }}.</span> <!-- Numbering -->
-                <span class="quote-text">{{ quote[1] }} {{ quote[2] }}</span>
-                <form class="delete-quote-form" action="{{ url_for('delete_quote', quote_id=quote[0]) }}" method="POST">
-                    <button type="submit" class="delete-btn">Remove</button>
-                </form>
-            </li>
-        {% endfor %}
-    </ul>
-</section>
-
+    
 
 
 <section id="sticky-notes">
