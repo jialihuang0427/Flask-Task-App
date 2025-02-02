@@ -3,10 +3,48 @@
     <head>
         <title>To-Do List</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='todo.css') }}">
+        <script src="https://kit.fontawesome.com/72c2a6a442.js" crossorigin="anonymous"></script>
+
     </head>
     
     
     <script>
+       
+        document.addEventListener("DOMContentLoaded", function () {
+            const noteForm = document.getElementById("note-form");
+            const noteInput = document.getElementById("note-input");
+            const notesContainer = document.getElementById("notes-container");
+        
+            noteForm.addEventListener("submit", function (event) {
+                event.preventDefault();
+        
+                if (notesContainer.children.length >= 10) {
+                    alert("You can only add up to 10 sticky notes.");
+                    return;
+                }
+        
+                const noteText = noteInput.value.trim();
+                if (noteText === "") return;
+        
+                // Create sticky note element
+                const noteDiv = document.createElement("div");
+                noteDiv.classList.add("sticky-note");
+                noteDiv.textContent = noteText;
+        
+                // Create delete button
+                const deleteBtn = document.createElement("button");
+                deleteBtn.classList.add("delete-note");
+                deleteBtn.textContent = "X";
+                deleteBtn.addEventListener("click", function () {
+                    noteDiv.remove();
+                });
+        
+                noteDiv.appendChild(deleteBtn);
+                notesContainer.appendChild(noteDiv);
+                noteInput.value = ""; // Clear input field
+            });
+        });
+        
         document.addEventListener("DOMContentLoaded", () => {
             let timer;
             let isRunning = false;
@@ -272,6 +310,7 @@
             <li><a href="#home">Home</a></li>
             <li><a href="#tasks">Tasks</a></li>
             <li><a href="#timer-section">Timer</a></li>
+            <li><a href="#Techniques">Techniques</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="nav-buttons">
@@ -314,20 +353,27 @@
     
         <form id="task-form" action="{{ url_for('todo') }}" method="POST">
             <input type="text" id="task-input" name="task" placeholder="New Task" required>
+            
+            
             <button type="submit">Add Task</button>
         </form>
-    
+        
+        
         <ul id="task-list">
             {% for task in tasks %}
                 <li class="task-item">
-                    <span class="task-number">{{ loop.index }}.</span> <!-- Numbering -->
+                    <span class="task-number">{{ loop.index }}.</span>
                     <span class="task-text">{{ task[1] }}</span>
+        
+                    
+        
                     <form class="delete-task-form" action="{{ url_for('delete_task', task_id=task[0]) }}" method="POST">
                         <button type="submit" class="delete-btn">Remove</button>
                     </form>
                 </li>
             {% endfor %}
         </ul>
+        
     </section>
     
     
@@ -352,6 +398,41 @@
         {% endfor %}
     </ul>
 </section>
+
+<section id="sticky-notes">
+    <h3>Sticky Notes</h3>
+    <form id="note-form">
+        <input type="text" id="note-input" placeholder="Write a note..." required>
+        <button type="submit">Add Note</button>
+    </form>
+    <div id="notes-container"></div> <!-- Notes appear here -->
+</section>
+
+
+<!-- Techniques Section -->
+<div id="Techniques">
+    <div class="container">
+        <h1 class="sub-title">Techniques</h1>
+        <div class="services-list">
+            <div class="service-box">
+                <i class="fa-solid fa-code"></i>
+                <h2>Web Design</h2>
+                <p>Creating visually appealing and user-friendly interfaces for websites. 
+                    Focusing on user experiences for ease of navigation.</p>
+            </div>
+            <div class="service-box">
+                <i class="fa-solid fa-microchip"></i>
+                <h2>Web Development</h2>
+                <p>Technical process of building websites to ensure smooth functionality.</p>
+            </div>
+            <div class="service-box">
+                <i class="fa-solid fa-chart-bar"></i>
+                <h2>Data Visualization</h2>
+                <p>Graphical representation of data, turning complex datasets into easy-to-understand visualizations.</p>
+            </div>
+        </div>
+    </div>
+</div>
 
     
 <section id="timer-section">
