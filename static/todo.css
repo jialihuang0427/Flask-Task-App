@@ -462,6 +462,7 @@ body {
 }
 
 #timer-section {
+    width : 650px;
     max-width: 1000px; /* Increase width */
     margin: 50px auto;
     background: white;
@@ -999,4 +1000,17 @@ h2 {
     font-size: 1rem;
     color: black; /* Darker gray for readability */
     margin-bottom: 15px;
+}
+
+/* Initial state: hidden and slightly moved down */
+.fade-in-section {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+/* When the section becomes visible */
+.fade-in-section.visible {
+    opacity: 1;
+    transform: translateY(0);
 }

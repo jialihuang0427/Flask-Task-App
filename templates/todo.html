@@ -11,6 +11,26 @@
     <script>
        
         document.addEventListener("DOMContentLoaded", function () {
+            const sections = document.querySelectorAll(".fade-in-section");
+    
+            const observer = new IntersectionObserver(
+                (entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("visible");
+                            observer.unobserve(entry.target); // Unobserve to avoid repeated triggers
+                        }
+                    });
+                },
+                { threshold: 0.2 } // Triggers when 20% of the section is in view
+            );
+    
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+        
+        document.addEventListener("DOMContentLoaded", function () {
             const noteForm = document.getElementById("note-form");
             const noteInput = document.getElementById("note-input");
             const notesContainer = document.getElementById("notes-container");
@@ -391,7 +411,7 @@
     
     <a id="tasks-section"></a> <!-- Hidden anchor to scroll back here -->
 
-    <section id="tasks">
+    <section id="tasks" class="fade-in-section">
         <h3>To-Do List <span id="task-counter">({{ tasks|length }})</span></h3> <!-- Display task count -->
         <p class="todo-message">Keep on top of things</p>
         <form id="task-form" action="{{ url_for('todo') }}" method="POST">
@@ -422,7 +442,7 @@
     </section>
     
     
-    <section id="quotes">
+    <section id="quotes" class="fade-in-section">
         <h3>Motivational Quotes <span id="quote-counter">({{ quote_count }})</span></h3> <!-- Display total count -->
         
         <form id="quote-form" action="{{ url_for('add_quote') }}" method="POST">
@@ -448,7 +468,7 @@
     
 
 
-<section id="sticky-notes">
+<section id="sticky-notes" class="fade-in-section">
     <h3>Sticky Notes</h3>
     <p class = "sticky-msg">You can only add up to 15 sticky notes</p>
     <form id="note-form">
@@ -461,7 +481,7 @@
 
 
 <!-- Techniques Section -->
-<div id="Techniques">
+<div id="Techniques" class="fade-in-section">
     <div class="container">
         <h1 class="sub-title">Techniques</h1>
         
@@ -505,7 +525,7 @@
     </div>
 </div>
 
-<div id="timerheading">
+<div id="timerheading" class="fade-in-section">
     <div class="container">
         <h1 class="sub-title">Organise your Time</h1>
         <p class="timer-description">This Pomodoro Timer is designed to help you boost productivity 
