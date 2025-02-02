@@ -40,6 +40,7 @@ body {
     font-weight: 900;
     text-transform: uppercase;
     color: rgb(255, 255, 255);
+    text-shadow: 6px 6px 15px rgba(255, 255, 255, 0.45); /* Extra strong shadow */
 }
 
 .landing-content p {
@@ -245,6 +246,102 @@ section {
 
 /* Copyright */
 .copyright {
-    background-color: #1E1E1E;
+    background-color: #050065;
     color: #E0E0E0;
+}
+
+#Techniques {
+    color: white;
+}
+
+/* Match heading size and color */
+#Techniques h1 {
+    color: white;
+}
+
+
+.techniques-description {
+    color: white;
+}
+
+.service-box {
+    background: #5f646a; /* Pastel blue */
+  
+}
+
+/* Ensure all text inside service-box is BLACK */
+.service-box h2,
+.service-box p,
+.service-box i {
+    color: rgb(255, 255, 255) !important; /* Forces all text to be black */
+}
+
+
+#timer-section {
+    width : 650px;
+    max-width: 1000px; /* Increase width */
+    margin: 50px auto;
+    background: #313337;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #ffffff;
+}
+
+
+.mode-btn {
+    background-color: #29b6f6;
+    color: white;
+}
+
+.mode-btn.active {
+    background-color: #0277bd;
+}
+
+.mode-btn:hover {
+    background-color: #01579b;
+}
+
+.timer-display {
+    font-size: 60px;
+    font-weight: bold;
+    color: #0277bd;
+    margin: 20px 0;
+}
+
+.timer-description{
+    color: white;
+}
+
+#timerheading h1 {
+    color: #ffffff;
+}
+
+.timer-display {
+    color: #ffffff;
+}
+
+/* Adjust Contact Section Height */
+#contact {
+    background-color: #000000; /* Light Grey */
+}
+
+/* Contact Section */
+.contact-container {
+    background-color:#000000;
+}
+
+
+.contact-form p {
+    font-size: 14px;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.contact-info p {
+    font-size: 14px;
+    color: white;
 }
