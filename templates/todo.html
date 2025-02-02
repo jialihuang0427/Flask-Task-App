@@ -4,12 +4,56 @@
         <title>To-Do List</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='todo.css') }}">
         <script src="https://kit.fontawesome.com/72c2a6a442.js" crossorigin="anonymous"></script>
+        <link id="dark-mode-stylesheet" rel="stylesheet" href="" />
+
+
 
     </head>
     
     
     <script>
-       
+        document.addEventListener("DOMContentLoaded", function () {
+            const darkModeToggle = document.getElementById("dark-mode-toggle");
+            const modeToggle = document.getElementById("toggleMode");
+            const darkModeStylesheet = document.getElementById("dark-mode-stylesheet");
+            const homeBg = document.querySelector(".home-bg");
+        
+            const DARK_MODE_CSS = "{{ url_for('static', filename='dark-mode.css') }}";
+            const LIGHT_MODE_IMG = "{{ url_for('static', filename='computer.jpeg') }}";
+            const DARK_MODE_IMG = "{{ url_for('static', filename='dark.jpg') }}";
+        
+            let darkMode = localStorage.getItem("darkMode") === "enabled";
+        
+            function setMode(isDark) {
+                if (isDark) {
+                    document.body.classList.add("dark-mode");
+                    darkModeStylesheet.setAttribute("href", DARK_MODE_CSS);
+                    homeBg.src = DARK_MODE_IMG;
+                    modeToggle.textContent = "Light Mode";
+                    localStorage.setItem("darkMode", "enabled");
+                } else {
+                    document.body.classList.remove("dark-mode");
+                    darkModeStylesheet.setAttribute("href", "");
+                    homeBg.src = LIGHT_MODE_IMG;
+                    modeToggle.textContent = "Dark Mode";
+                    localStorage.setItem("darkMode", "disabled");
+                }
+            }
+        
+            // ✅ Set the initial mode based on stored preference
+            setMode(darkMode);
+        
+            // 🎛 Toggle mode on button click
+            function toggleMode() {
+                darkMode = !darkMode;
+                setMode(darkMode);
+            }
+        
+            darkModeToggle?.addEventListener("click", toggleMode);
+            modeToggle?.addEventListener("click", toggleMode);
+        });
+        
+        
         document.addEventListener("DOMContentLoaded", function () {
             const sections = document.querySelectorAll(".fade-in-section");
     
@@ -29,7 +73,7 @@
                 observer.observe(section);
             });
         });
-        
+
         document.addEventListener("DOMContentLoaded", function () {
             const noteForm = document.getElementById("note-form");
             const noteInput = document.getElementById("note-input");
@@ -379,6 +423,7 @@
         <div class="nav-buttons">
             <a href="{{ url_for('logout') }}" class="btn logout-btn">Log Out</a>
             <button id="toggleMode" class="btn mode-btn"> Dark Mode</button>
+
         </div>
     </nav>
 

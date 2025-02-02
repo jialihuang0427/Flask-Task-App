@@ -1,0 +1,120 @@
+/* TaskFlow Dark Mode Styling */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #E0E0E0;
+    text-align: center;
+    padding-top: 60px;
+}
+
+.taskflow-font {
+    color: #E0E0E0;
+}
+
+/* 🟦 Navbar */
+.navbar {
+    background-color: #1E1E1E;
+    color: white;
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+.landing-page {
+    background: none !important;  /* Remove black background */
+    box-shadow: none !important; /* Removes any shadow */
+    border: none !important; /* Ensures no border effect */
+    background: transparent !important; /* Prevents background effects */
+}
+.nav-links a {
+    color: #E0E0E0;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+    color: #90CAF9;
+}
+
+/* 🟦 Dark Mode Button */
+.mode-btn {
+    background-color: #424242;
+    color: white;
+}
+
+.mode-btn:hover {
+    background-color: #616161;
+}
+
+/* 🟦 Sections */
+section {
+    padding: 30px 20px;
+    background: #1E1E1E;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(255, 255, 255, 0.1);
+}
+
+.todo-section, .quote-section {
+    background: #2C2C2C;
+    color: #E0E0E0;
+}
+
+#tasks h3, #quotes h3 {
+    color: #BB86FC;
+}
+
+/* 🟦 Inputs and Forms */
+input, textarea {
+    background-color: #2C2C2C;
+    color: #E0E0E0;
+    border: 1px solid #BB86FC;
+}
+
+input:focus, textarea:focus {
+    border-color: #90CAF9;
+    box-shadow: 0px 0px 5px rgba(144, 202, 249, 0.5);
+}
+
+/* 🟦 Buttons */
+.btn, #task-form button, #quote-form button, .submit-btn {
+    background-color: #BB86FC;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover, #task-form button:hover, #quote-form button:hover, .submit-btn:hover {
+    background-color: #6200EE;
+}
+
+/* 🟦 Task and Quote List */
+.task-item, .quote-item {
+    background: #2C2C2C;
+    color: #E0E0E0;
+    border-bottom: 1px solid #444;
+}
+
+.task-item:hover, .quote-item:hover {
+    background: #3A3A3A;
+}
+
+/* 🟦 Sticky Notes */
+#sticky-notes {
+    background: #1E1E1E;
+}
+
+.sticky-note {
+    background-color: #2C2C2C;
+    color: #E0E0E0;
+    border: 1px solid #BB86FC;
+}
+
+/* 🟦 Copyright Footer */
+.copyright {
+    background-color: #1E1E1E;
+    color: #E0E0E0;
+}
