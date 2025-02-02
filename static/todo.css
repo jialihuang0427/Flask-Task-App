@@ -198,6 +198,13 @@
     background-color: #5c6bc0;
 }
 
+/* Ensure both buttons have the same font size */
+.nav-buttons .btn, .nav-buttons .mode-btn {
+    font-size: 16px; /* Set a consistent font size */
+    font-weight: normal; /* Keep a uniform weight */
+    padding: 10px 15px; /* Ensure consistent padding */
+    text-decoration: none; /* Remove any underline */
+}
 /* Style for Background Image */
 .home-bg {
     position: absolute;
